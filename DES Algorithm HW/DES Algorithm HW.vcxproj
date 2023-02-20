@@ -128,9 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DES Algorithm HW.cpp" />
+    <ClCompile Include="des.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="encryption.h" />
+    <ClInclude Include="des.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

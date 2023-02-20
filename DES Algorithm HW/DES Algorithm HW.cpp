@@ -2,20 +2,124 @@
 //
 
 #include <iostream>
-#include <encrption.h>
+#include <string>
+#include <bitset>
+#include <vector>
+#include "des.h"
+
+std::string toBinary(std::string const& str) {
+    std::string binary = "";
+    for (char const& c: str) {
+        binary += std::bitset<8>(c).to_string();
+    }
+    return binary;
+} //Converts String to StringBit
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::string key;
+    std::string plainText;
+    std::vector<int> keyOut;
+    std::vector <int> key48;
+    std::vector <int> plainTextOut;
+    int temp = 0;
+    DES encryption;
+
+    //Key Preprocess
+
+    //Enter Key
+    std::cout << "Insert 8 character key" << std::endl;
+
+    std::cin >> key;
+
+    //Check for invalid input
+    if (key.size() > 8) {
+        std::cout << "Invalid Input: Key must be 8 characters." << std::endl;
+        return -1;
+    }
+    
+    //Store and Print Key in bit format
+    std::cout << "Key: " << key << std::endl;
+    std::cout << "Key in Bits:\n";
+
+    key = toBinary(key);
+
+    std::cout << key << "\n";
+
+    //Bitstream into Vector
+    for (int i = 0; i < key.size(); ++i) {
+        temp = int(key.at(i)) - 48;
+        keyOut.push_back(temp);
+        //std::cout << keyOut.at(i);
+    }
+    std::cout << "\n";
+
+    encryption.permitedChoiceOne(keyOut);
+    
+    std::cout << "Permitted Choice One:\n";
+    //Print Permitted Choice One
+    for (int i = 0; i < keyOut.size(); ++i) {
+        std::cout << keyOut[i];
+    }
+    std::cout << "\n";
+
+    
+
+    //Round 1 - Left Shift
+    std::cout << "Left Shift Process:\n";
+    
+    encryption.leftShift(1, keyOut);
+
+    for (int i = 0; i < keyOut.size(); ++i) {
+        std::cout << keyOut[i];
+    }
+    std::cout << "\n";
+
+    //Permitted Choice 2
+    std::cout << "Permitted Choice 2:\n";
+    key48 = encryption.permitedChoiceTwo(keyOut);
+
+    for (int i = 0; i < key48.size(); ++i) {
+        std::cout << key48[i];
+    }
+    std::cout << "\n";
+
+
+
+    //Text Preprocess
+
+    //Enter Plain Text
+    std::cout << "Enter Plain Text:" << std::endl;
+    std::cin >> plainText;
+
+    //Bitstream
+    plainText = toBinary(plainText);
+
+    //Bitstream into Vector
+    for (int i = 0; i < plainText.size(); ++i) {
+        temp = int(plainText.at(i)) - 48;
+        plainTextOut.push_back(temp);
+    }
+
+    while (!(plainTextOut.size() % 64 == 0)) {
+        plainTextOut.push_back(0);
+    }
+
+    //Print Complete 
+    for (int i = 0; i < plainTextOut.size(); ++i) {
+        std::cout << plainTextOut[i];
+    }
+    std::cout << "\n";
+
+    //Initial Permutation
+    std::cout << "Initial Permutation:\n";
+
+    encryption.initialPermutation(plainTextOut);
+
+    for (int i = 0; i < plainTextOut.size(); ++i) {
+        std::cout << plainTextOut[i];
+    }
+    std::cout << "\n";
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

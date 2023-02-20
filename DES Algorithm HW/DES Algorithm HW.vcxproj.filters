@@ -18,9 +18,12 @@
     <ClCompile Include="DES Algorithm HW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="des.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="encryption.h">
+    <ClInclude Include="des.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
