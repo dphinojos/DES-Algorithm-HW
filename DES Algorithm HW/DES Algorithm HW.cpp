@@ -121,5 +121,9 @@ int main()
     }
     std::cout << "\n";
 
+    for (int i = 0; i < (plainTextOut.size() / 64); ++i) {
+        plainTextOut = encryption.rounds(keyOut, plainTextOut, i);
+    }
+
     return 0;
 }
