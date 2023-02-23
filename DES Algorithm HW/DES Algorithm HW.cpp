@@ -22,6 +22,8 @@ int main()
     std::vector<int> keyOut;
     std::vector <int> key48;
     std::vector <int> plainTextOut;
+    std::vector <int> tempVector;
+    std::vector <int> output;
     int temp = 0;
     DES encryption;
 
@@ -39,12 +41,14 @@ int main()
     }
     
     //Store and Print Key in bit format
-    std::cout << "Key: " << key << std::endl;
+    std::cout << "Key: \n" << key << std::endl;
     std::cout << "Key in Bits:\n";
 
     key = toBinary(key);
 
-    std::cout << key << "\n";
+    for (int i = 0; i < key.size(); ++i) {
+        std::cout << key[i];
+    }
 
     //Bitstream into Vector
     for (int i = 0; i < key.size(); ++i) {
@@ -122,8 +126,19 @@ int main()
     std::cout << "\n";
 
     for (int i = 0; i < (plainTextOut.size() / 64); ++i) {
-        plainTextOut = encryption.rounds(keyOut, plainTextOut, i);
+        tempVector = encryption.rounds(key48, plainTextOut, i);
+        std::cout << "Block " << i + 1 << " Complete\n";
+        for (int j = 0; j < tempVector.size(); ++j) {
+            output.push_back(tempVector[j]);
+        }
     }
+
+    std::cout << "All for One Round:\n";
+    //print
+    for (int i = 0; i < output.size(); ++i) {
+        std::cout << output[i];
+    }
+    std::cout << "\n";
 
     return 0;
 }
