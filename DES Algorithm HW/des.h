@@ -14,7 +14,7 @@ class DES {
         std::vector<int> permitedChoiceTwo(std::vector<int> input);
         void leftShift(int numShift, std::vector<int>& input);
         void initialPermutation(std::vector<int>& input);
-        std::vector<int> rounds(std::vector<int> inputKey, std::vector<int> inputText, int blockNumber);
+        std::vector<int> rounds(std::vector<int>& inputKey, std::vector<int> inputText, int blockNumber, int roundNumber);
         std::vector<int> sBlock(int s, std::vector<int> input);
         int convertBittoDecimal(long long n);
         void sGroupChange(std::vector<int>& change, std::vector<int> group, int s);

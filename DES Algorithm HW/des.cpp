@@ -67,9 +67,43 @@ void DES::initialPermutation(std::vector<int>& input) {
 	}
 }
 
-std::vector<int> DES::rounds(std::vector<int> inputKey, std::vector<int> inputText, int blockNumber) {
+std::vector<int> DES::rounds(std::vector<int>& inputKey, std::vector<int> inputText, int blockNumber, int roundNumber) {
 	std::vector<int> rightSub, rightOut;
 	std::vector<int> leftSub, leftOut;
+	std::vector<int> key48;
+
+	std::cout << "Left Shift Process:\n";
+	
+	switch (roundNumber) {
+	case 1:
+		leftShift(1, inputKey);
+		break;
+	case 2:
+		leftShift(1, inputKey);
+		break;
+	case 9:
+		leftShift(1, inputKey);
+		break;
+	case 16:
+		leftShift(1, inputKey);
+	default:
+		leftShift(2, inputKey);
+		break;
+	}
+
+	for (int i = 0; i < inputKey.size(); ++i) {
+		std::cout << inputKey[i];
+	}
+	std::cout << "\n";
+
+	//Permitted Choice 2
+	std::cout << "Permitted Choice 2:\n";
+	key48 = permitedChoiceTwo(inputKey);
+
+	for (int i = 0; i < key48.size(); ++i) {
+		std::cout << key48[i];
+	}
+	std::cout << "\n";
 
 	for (int i = 0; i < 32; ++i) {
 		leftSub.push_back(inputText[(blockNumber * 64) + i]);

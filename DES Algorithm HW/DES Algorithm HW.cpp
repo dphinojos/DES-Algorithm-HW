@@ -69,24 +69,24 @@ int main()
 
     
 
-    //Round 1 - Left Shift
-    std::cout << "Left Shift Process:\n";
-    
-    encryption.leftShift(1, keyOut);
+    ////Round 1 - Left Shift
+    //std::cout << "Left Shift Process:\n";
+    //
+    //encryption.leftShift(1, keyOut);
 
-    for (int i = 0; i < keyOut.size(); ++i) {
-        std::cout << keyOut[i];
-    }
-    std::cout << "\n";
+    //for (int i = 0; i < keyOut.size(); ++i) {
+    //    std::cout << keyOut[i];
+    //}
+    //std::cout << "\n";
 
-    //Permitted Choice 2
-    std::cout << "Permitted Choice 2:\n";
-    key48 = encryption.permitedChoiceTwo(keyOut);
+    ////Permitted Choice 2
+    //std::cout << "Permitted Choice 2:\n";
+    //key48 = encryption.permitedChoiceTwo(keyOut);
 
-    for (int i = 0; i < key48.size(); ++i) {
-        std::cout << key48[i];
-    }
-    std::cout << "\n";
+    //for (int i = 0; i < key48.size(); ++i) {
+    //    std::cout << key48[i];
+    //}
+    //std::cout << "\n";
 
 
 
@@ -125,18 +125,25 @@ int main()
     }
     std::cout << "\n";
 
-    for (int i = 0; i < (plainTextOut.size() / 64); ++i) {
-        tempVector = encryption.rounds(key48, plainTextOut, i);
-        std::cout << "Block " << i + 1 << " Complete\n";
-        for (int j = 0; j < tempVector.size(); ++j) {
-            output.push_back(tempVector[j]);
+    for (int k = 1; k <= 16; ++k) {
+        for (int i = 0; i < (plainTextOut.size() / 64); ++i) {
+            tempVector = encryption.rounds(keyOut, plainTextOut, i, k); //Round Function
+            std::cout << "Block " << i + 1 << " Complete\n";
+            for (int j = 0; j < tempVector.size(); ++j) {
+                output.push_back(tempVector[j]); //Output of round into seperate vector 
+                                                 //For the multiple 64 bit blocks
+            }
         }
+        //Update Plaintext and clear output
+        std::cout << "Round " << k << " Complete\n";
+        plainTextOut = output;
+        output.clear();
     }
 
-    std::cout << "All for One Round:\n";
+    std::cout << "Encrypted:\n";
     //print
-    for (int i = 0; i < output.size(); ++i) {
-        std::cout << output[i];
+    for (int i = 0; i < plainTextOut.size(); ++i) {
+        std::cout << plainTextOut[i];
     }
     std::cout << "\n";
 
