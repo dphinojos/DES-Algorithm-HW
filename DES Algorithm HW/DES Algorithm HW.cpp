@@ -7,14 +7,6 @@
 #include <vector>
 #include "des.h"
 
-std::string toBinary(std::string const& str) {
-    std::string binary = "";
-    for (char const& c: str) {
-        binary += std::bitset<8>(c).to_string();
-    }
-    return binary;
-} //Converts String to StringBit
-
 int main()
 {
     std::string key;
@@ -30,25 +22,36 @@ int main()
     //Key Preprocess
 
     //Enter Key
-    std::cout << "Insert 8 character key" << std::endl;
+    std::cout << "Insert Key String" << std::endl;
 
     std::cin >> key;
 
     //Check for invalid input
-    if (key.size() > 8) {
+    /*if (key.size() > 8) {
         std::cout << "Invalid Input: Key must be 8 characters." << std::endl;
         return -1;
-    }
+    }*/
     
     //Store and Print Key in bit format
     std::cout << "Key: \n" << key << std::endl;
-    std::cout << "Key in Bits:\n";
+    std::cout << "Hashing:\n";
 
-    key = toBinary(key);
+    key = encryption.berstein_hash(key);
 
+    //Hash
+    
     for (int i = 0; i < key.size(); ++i) {
         std::cout << key[i];
     }
+    std::cout << "\n";
+    
+    std::cout << "To Binary:\n";
+    key = encryption.toBinary(key);
+    for (int i = 0; i < key.size(); ++i) {
+        std::cout << key[i];
+    }
+    std::cout << "\n";
+
 
     //Bitstream into Vector
     for (int i = 0; i < key.size(); ++i) {
@@ -58,14 +61,14 @@ int main()
     }
     std::cout << "\n";
 
-    encryption.permitedChoiceOne(keyOut);
-    
-    std::cout << "Permitted Choice One:\n";
-    //Print Permitted Choice One
-    for (int i = 0; i < keyOut.size(); ++i) {
-        std::cout << keyOut[i];
-    }
-    std::cout << "\n";
+
+    //std::cout << "Permitted Choice One:\n";
+    //encryption.permitedChoiceOne(keyOut);
+    ////Print Permitted Choice One
+    //for (int i = 0; i < keyOut.size(); ++i) {
+    //    std::cout << keyOut[i];
+    //}
+    //std::cout << "\n";
 
     
 
@@ -97,7 +100,7 @@ int main()
     std::cin >> plainText;
 
     //Bitstream
-    plainText = toBinary(plainText);
+    plainText = encryption.toBinary(plainText);
 
     //Bitstream into Vector
     for (int i = 0; i < plainText.size(); ++i) {

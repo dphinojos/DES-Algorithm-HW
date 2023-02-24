@@ -4,6 +4,9 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <iomanip>
+#include <sstream>
+#include <bitset>
 
 
 class DES {
@@ -19,6 +22,8 @@ class DES {
         int convertBittoDecimal(long long n);
         void sGroupChange(std::vector<int>& change, std::vector<int> group, int s);
         void sPermutation(std::vector<int>& input);
+        std::string berstein_hash(const std::string& input);
+        std::string toBinary(std::string const& str);
 
     private:
         int IP[64] =

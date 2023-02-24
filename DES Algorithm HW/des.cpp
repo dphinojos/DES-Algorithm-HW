@@ -97,13 +97,13 @@ std::vector<int> DES::rounds(std::vector<int>& inputKey, std::vector<int> inputT
 	std::cout << "\n";
 
 	//Permitted Choice 2
-	std::cout << "Permitted Choice 2:\n";
+	/*std::cout << "Hashing 2:\n";
 	key48 = permitedChoiceTwo(inputKey);
 
 	for (int i = 0; i < key48.size(); ++i) {
 		std::cout << key48[i];
 	}
-	std::cout << "\n";
+	std::cout << "\n";*/
 
 	for (int i = 0; i < 32; ++i) {
 		leftSub.push_back(inputText[(blockNumber * 64) + i]);
@@ -352,3 +352,22 @@ void DES::sPermutation(std::vector<int>& input) {
 		input[i] = tempVector[sP[i] - 1];
 	}
 }
+
+std::string DES::berstein_hash(const std::string& input) {
+	unsigned long long hash = 5381;
+	for (char c : input) {
+		hash = (hash * 33) + static_cast<unsigned char>(c);
+	}
+
+	std::stringstream ss;
+	ss << std::hex << hash;
+	return ss.str();
+}
+
+std::string DES::toBinary(std::string const& str) {
+	std::string binary = "";
+	for (char const& c : str) {
+		binary += std::bitset<8>(c).to_string();
+	}
+	return binary;
+} //Converts String to StringBit
